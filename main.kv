@@ -1,0 +1,65 @@
+#: include dashboard.kv
+#: include firstscreen.kv
+
+NavigationLayout:
+    id: nav_layout
+
+    ScreenManager:
+
+        Screen:
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                MDToolbar:
+                    anchor_title: 'center'
+                    title: app.title
+                    elevation: 10
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state()]]
+
+
+
+                ScreenManager:
+                    id: screen_manager
+
+                    DashBoard:
+                        id: dashboard
+                        name: "dashboard"
+
+                    SettingScreen:
+                        id: firstscreen
+                        name: "firstscreen"
+
+    MDNavigationDrawer:
+        id: nav_drawer
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: "8dp"
+            spacing: "8dp"
+
+            Image:
+                size_hint: None, None
+                size: "200dp", "200dp"
+                source: "cute.png"
+
+            ScrollView:
+
+                MDList:
+
+                    OneLineIconListItem:
+                        text: "DashBoard"
+                        on_release:
+                            screen_manager.current = "dashboard"
+                            nav_drawer.set_state()
+                        IconLeftWidget:
+                            icon: "view-dashboard"
+
+                    OneLineIconListItem:
+                        text: "Primary pallete"
+                        on_release:
+                            screen_manager.current = "firstscreen"
+                            nav_drawer.set_state()
+                        IconLeftWidget:
+                            icon: "cart"
+
